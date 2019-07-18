@@ -4857,7 +4857,7 @@
 			// - The presentation isn't over
 			if( autoSlide && !autoSlidePaused && !isPaused() && !isOverview() && ( !Reveal.isLastSlide() || availableFragments().next || config.loop === true ) ) {
 				autoSlideTimeout = setTimeout( function() {
-					typeof config.autoSlideMethod === 'function' ? config.autoSlideMethod() : navigateNext();
+					typeof config.autoSlideMethod === 'function' ? config.autoSlideMethod() : Reveal.navigateNext();
 					cueAutoSlide();
 				}, autoSlide );
 				autoSlideStartTime = Date.now();
@@ -5205,11 +5205,11 @@
 
 			// P, PAGE UP
 			if( keyCode === 80 || keyCode === 33 ) {
-				navigatePrev();
+				Reveal.navigatePrev();
 			}
 			// N, PAGE DOWN
 			else if( keyCode === 78 || keyCode === 34 ) {
-				navigateNext();
+				Reveal.navigateNext();
 			}
 			// H, LEFT
 			else if( keyCode === 72 || keyCode === 37 ) {
@@ -5217,7 +5217,7 @@
 					slide( 0 );
 				}
 				else if( !isOverview() && config.navigationMode === 'linear' ) {
-					navigatePrev();
+					Reveal.navigatePrev();
 				}
 				else {
 					navigateLeft();
@@ -5229,16 +5229,16 @@
 					slide( Number.MAX_VALUE );
 				}
 				else if( !isOverview() && config.navigationMode === 'linear' ) {
-					navigateNext();
+					Reveal.navigateNext();
 				}
 				else {
-					navigateRight();
+					Reveal.navigateRight();
 				}
 			}
 			// K, UP
 			else if( keyCode === 75 || keyCode === 38 ) {
 				if( !isOverview() && config.navigationMode === 'linear' ) {
-					navigatePrev();
+					Reveal.navigatePrev();
 				}
 				else {
 					navigateUp();
@@ -5247,7 +5247,7 @@
 			// J, DOWN
 			else if( keyCode === 74 || keyCode === 40 ) {
 				if( !isOverview() && config.navigationMode === 'linear' ) {
-					navigateNext();
+					Reveal.navigateNext();
 				}
 				else {
 					navigateDown();
@@ -5267,10 +5267,10 @@
 					deactivateOverview();
 				}
 				if( event.shiftKey ) {
-					navigatePrev();
+					Reveal.navigatePrev();
 				}
 				else {
-					navigateNext();
+					Reveal.navigateNext();
 				}
 			}
 			// TWO-SPOT, SEMICOLON, B, V, PERIOD, LOGITECH PRESENTER TOOLS "BLACK SCREEN" BUTTON
@@ -5356,11 +5356,11 @@
 
 				if( deltaX > touch.threshold && Math.abs( deltaX ) > Math.abs( deltaY ) ) {
 					touch.captured = true;
-					navigateLeft();
+					Reveal.navigateLeft();
 				}
 				else if( deltaX < -touch.threshold && Math.abs( deltaX ) > Math.abs( deltaY ) ) {
 					touch.captured = true;
-					navigateRight();
+					Reveal.navigateRight();
 				}
 				else if( deltaY > touch.threshold ) {
 					touch.captured = true;
@@ -5461,10 +5461,10 @@
 
 			var delta = event.detail || -event.wheelDelta;
 			if( delta > 0 ) {
-				navigateNext();
+				Reveal.navigateNext();
 			}
 			else if( delta < 0 ) {
-				navigatePrev();
+				Reveal.navigatePrev();
 			}
 
 		}
@@ -5499,12 +5499,12 @@
 	/**
 	 * Event handler for navigation control buttons.
 	 */
-	function onNavigateLeftClicked( event ) { event.preventDefault(); onUserInput(); config.navigationMode === 'linear' ? navigatePrev() : navigateLeft(); }
-	function onNavigateRightClicked( event ) { event.preventDefault(); onUserInput(); config.navigationMode === 'linear' ? navigateNext() : navigateRight(); }
+	function onNavigateLeftClicked( event ) { event.preventDefault(); onUserInput(); config.navigationMode === 'linear' ? Reveal.navigatePrev() : Reveal.navigateLeft(); }
+	function onNavigateRightClicked( event ) { event.preventDefault(); onUserInput(); config.navigationMode === 'linear' ? Reveal.navigateNext() : Reveal.navigateRight(); }
 	function onNavigateUpClicked( event ) { event.preventDefault(); onUserInput(); navigateUp(); }
 	function onNavigateDownClicked( event ) { event.preventDefault(); onUserInput(); navigateDown(); }
-	function onNavigatePrevClicked( event ) { event.preventDefault(); onUserInput(); navigatePrev(); }
-	function onNavigateNextClicked( event ) { event.preventDefault(); onUserInput(); navigateNext(); }
+	function onNavigatePrevClicked( event ) { event.preventDefault(); onUserInput(); Reveal.navigatePrev(); }
+	function onNavigateNextClicked( event ) { event.preventDefault(); onUserInput(); Reveal.navigateNext(); }
 
 	/**
 	 * Handler for the window level 'hashchange' event.
